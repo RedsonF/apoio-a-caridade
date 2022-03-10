@@ -20,7 +20,7 @@ export default function Carousel({ images, removeImage, removeMode }) {
   useEffect(() => {
     const element = document.querySelector('#teste');
 
-    if (flag) {
+    if (flag && removeMode) {
       const { scrollWidth } = element;
       element.scrollBy(scrollWidth, 0);
     } else if (images.length > 0) {

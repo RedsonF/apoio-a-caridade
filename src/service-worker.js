@@ -1,5 +1,3 @@
-/* eslint-disable prefer-template */
-/* eslint-disable prefer-regex-literals */
 /* eslint-disable no-restricted-globals */
 
 // This service worker can be customized!
