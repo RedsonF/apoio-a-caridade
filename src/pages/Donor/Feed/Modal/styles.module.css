@@ -1,0 +1,17 @@
+.line {
+  height: 1px;
+  background: var(--borderColor);
+  margin: 10px 0;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

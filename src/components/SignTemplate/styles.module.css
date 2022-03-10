@@ -1,0 +1,20 @@
+.content {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 60px;
+}
+
+.title {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.title p {
+  color: var(--blue);
+  font-size: 30px;
+  font-weight: bold;
+}

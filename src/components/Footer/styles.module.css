@@ -1,0 +1,24 @@
+.container {
+  background: var(--white);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 1px solid var(--borderColor);
+}
+
+.icon,
+.iconFeed {
+  font-size: 32px !important;
+}
+
+.icon {
+  color: #3d3f49;
+}
+
+.iconFeed {
+  color: var(--white);
+}

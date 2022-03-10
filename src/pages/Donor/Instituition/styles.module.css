@@ -1,0 +1,97 @@
+.title {
+  font-size: 20px;
+  color: var(--blue);
+}
+
+.img {
+  width: 100%;
+  height: 50vw;
+  margin: 0 auto;
+  border: 1px solid var(--borderColor);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.img > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.avatar {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background: var(--gray-50);
+  color: var(--black);
+  min-width: 60px;
+  height: 60px;
+  width: 60px;
+  border: 1px solid var(--borderColor);
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar img {
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+}
+
+.button {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.options {
+  margin-top: 30px;
+  display: flex;
+  font-size: 18px;
+}
+
+.options > div {
+  border: 1px solid var(--blue);
+  padding: 5px 0;
+  text-align: center;
+  flex: 1;
+  margin-bottom: 10px;
+}
+
+.about,
+.aboutActive {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.pub,
+.pubActive {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.aboutActive,
+.pubActive {
+  background: var(--blue);
+}
+
+.about p,
+.pub p {
+  color: var(--blue);
+}
+
+.aboutActive p,
+.pubActive p {
+  color: var(--white);
+}
+
+.display {
+  white-space: pre-wrap;
+  text-align: justify;
+  padding: 10px;
+}

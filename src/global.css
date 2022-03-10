@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+p,
+span,
+label {
+  color: var(--black);
+}
+
+#root,
+body,
+html {
+  height: 100vh;
+}
+
+#root {
+  background: var(--white);
+}
+
+:root {
+  --white: #fff;
+  --black: #3d3f49;
+  --gray-50: #f3f3f3;
+  --gray-100: #ebebeb;
+  --gray-200: #cecece;
+  --gray-500: #808080;
+  --blue: #3375ff;
+  --red: #ed2939;
+  --borderColor: #bbbbbb;
+  --shadowCard: #00000059 0px 3px 3px;
+}
+
+.content {
+  padding: 65px 10px 75px 10px;
+}
+
+.tightContent {
+  padding: 75px 20px 75px 20px;
+}
+
+.centralizedContent {
+  padding: 65px 10px 75px 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

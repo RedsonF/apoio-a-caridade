@@ -1,0 +1,13 @@
+.instituition {
+  margin-top: 20px;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.description {
+  white-space: pre-wrap;
+  text-align: justify;
+}

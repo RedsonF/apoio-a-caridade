@@ -1,0 +1,22 @@
+.title,
+.text {
+  text-align: center;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--green-500);
+}
+
+.line {
+  background: var(--gray-200);
+  height: 1px;
+  margin: 15px auto;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}

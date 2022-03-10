@@ -1,0 +1,15 @@
+.form {
+  flex: 4;
+}
+
+.text {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  gap: 5px;
+}
+
+.link {
+  color: var(--blue);
+}

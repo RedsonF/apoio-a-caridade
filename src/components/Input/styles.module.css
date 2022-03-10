@@ -1,0 +1,28 @@
+.container {
+  border: 1px solid var(--borderColor);
+  background: var(--gray-50);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.container:hover {
+  border-color: var(--blue);
+}
+
+.input {
+  width: 100%;
+  background: var(--gray-50);
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  outline: none;
+  font-size: 16px;
+}
+
+.error {
+  color: var(--red);
+  text-align: center;
+  font-size: 14px;
+  margin-top: 2px;
+}

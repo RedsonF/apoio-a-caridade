@@ -1,0 +1,21 @@
+.container {
+  z-index: 1;
+  top: 0;
+  height: 55px;
+  width: 100%;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  border-bottom: 1px solid var(--borderColor);
+}
+
+.title {
+  font-size: 20px;
+}
+
+.icon {
+  font-size: 28px;
+  color: var(--black);
+}

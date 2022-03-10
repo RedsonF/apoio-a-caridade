@@ -1,0 +1,17 @@
+.options > div {
+  padding: 10px;
+  border-top: 1px solid var(--borderColor);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.last {
+  border-bottom: 1px solid var(--borderColor);
+}
+
+.last,
+.last p {
+  color: var(--red);
+}

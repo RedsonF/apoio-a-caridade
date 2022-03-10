@@ -1,0 +1,10 @@
+.container:hover {
+  border-color: var(--blue);
+}
+
+.error {
+  color: var(--red);
+  text-align: center;
+  font-size: 14px;
+  margin-top: 2px;
+}

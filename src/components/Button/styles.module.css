@@ -1,0 +1,25 @@
+.blue,
+.red {
+  height: 45px;
+  font-family: 'Roboto' !important;
+  padding: 0 10px !important;
+  border-radius: 8px !important;
+  color: var(--white) !important;
+  gap: 5px;
+}
+
+.blue {
+  background: var(--blue) !important;
+  border: 2px solid var(--blue) !important;
+}
+
+.red {
+  background: transparent !important;
+  border: 2px solid var(--red) !important;
+  color: var(--red) !important;
+}
+
+.icon {
+  margin-top: 5px;
+  color: var(--white);
+}
