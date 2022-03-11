@@ -28,6 +28,16 @@ export default function Carousel({ images, removeImage, removeMode }) {
     }
   }, [images]);
 
+  useEffect(() => {
+    const element = document.querySelector('#teste');
+    const { scrollWidth } = element;
+    if (index > scrollWidth) {
+      element.scrollBy(scrollWidth * 2, scrollWidth);
+    } else {
+      element.scrollBy(scrollWidth, scrollWidth * 2);
+    }
+  }, [index]);
+
   const remove = () => {
     const newIndex = index;
     setFlag(false);

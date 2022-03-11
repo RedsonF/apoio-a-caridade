@@ -23,6 +23,7 @@
   width: 100%;
   position: relative;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 ::-webkit-scrollbar {
