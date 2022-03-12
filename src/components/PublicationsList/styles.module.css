@@ -17,22 +17,22 @@
   transition-duration: 0.3s;
 }
 
-.img {
-  background: var(--gray-50);
-  color: var(--black);
-  height: 50vw;
-  width: 100%;
-  border: 1px solid var(--borderColor);
-  border-radius: 10px;
+.like {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 5px;
+  margin: 5px;
+  margin-bottom: 0;
 }
 
-.img img {
-  height: 100%;
-  width: 100%;
-  border-radius: 10px;
+.like,
+.like p {
+  color: var(--red);
+  font-size: 18px;
+}
+
+.likeClick:hover {
+  background-position: 0;
 }
 
 .nameContainer {
