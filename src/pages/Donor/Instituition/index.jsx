@@ -8,7 +8,7 @@ import Header from 'components/Header';
 import Button from 'components/Button';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import PublicationList from 'components/PublicationsList';
-import ImageIcon from '@mui/icons-material/Image';
+import CoverImage from 'components/CoverImage';
 import Modal from './Modal';
 
 import styles from './styles.module.css';
@@ -34,7 +34,7 @@ const Instituition = () => {
       const { msg } = err.response?.data || '';
       Swal.fire({
         icon: 'error',
-        title: `id - ${id}`,
+        title: 'Ocorreu um erro',
         text: msg,
       });
     }
@@ -55,12 +55,7 @@ const Instituition = () => {
       />
       <Header title="Instituição" path="/donor/home" />
       <div className="content">
-        <div className={styles.img}>
-          <img alt="imagem" src={coverImage} />
-          <div className={styles.avatar}>
-            <img alt="imagem" src={logoImage} />
-          </div>
-        </div>
+        <CoverImage image={coverImage} logo={logoImage || ''} />
         <div style={{ marginTop: 15 }}>
           <p className={styles.title}>{name}</p>
           <p>

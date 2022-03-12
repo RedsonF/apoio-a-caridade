@@ -1,6 +1,7 @@
 .name {
   font-size: 20px;
   color: var(--blue);
+  margin: 10px 0;
 }
 
 .img {
@@ -38,14 +39,13 @@
 
 .bold {
   font-weight: bold;
-  font-size: 18px;
 }
 
 .info {
   margin-top: 15px;
 }
 
-.display {
+.description {
   white-space: pre-wrap;
   text-align: justify;
 }

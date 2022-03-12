@@ -5,7 +5,8 @@ import AnimatedPage from 'animation/AnimatedPage';
 import api from 'services/api';
 import Swal from 'sweetalert2';
 import Header from 'components/Header';
-import ImageIcon from '@mui/icons-material/Image';
+import CoverImage from 'components/CoverImage';
+
 import styles from './styles.module.css';
 
 export default function HomeInstituition() {
@@ -13,7 +14,7 @@ export default function HomeInstituition() {
 
   const [institution, setInstitution] = useState({});
   const [publications, setPublications] = useState({});
-  const { name, location, description } = institution;
+  const { name, location, description, logoImage, coverImage } = institution;
 
   useEffect(async () => {
     try {
@@ -35,26 +36,23 @@ export default function HomeInstituition() {
   return (
     <AnimatedPage>
       <Header title="Início" />
-      <div className="tightContent">
-        <div className={styles.img}>
-          <div className={styles.logo}>
-            <img alt="imagem" loading="lazy" src={institution.logoImage} />
+      <div className="content">
+        <CoverImage image={coverImage} logo={logoImage || ''} />
+        <div style={{ padding: 5 }}>
+          <p className={styles.name}>{name}</p>
+          <div>
+            <p className={styles.bold}>{publications.length} Publicações </p>
           </div>
-          <div className={styles.publications}>
-            <p className={styles.bold}>{publications?.length}</p>
-            <p>Publicações</p>
+          <div className={styles.info}>
+            <p className={styles.bold}>Localização</p>
+            <p>
+              {location?.address} - {location?.city} - {location?.state}
+            </p>
           </div>
-        </div>
-        <p className={styles.name}>{name}</p>
-        <div className={styles.info}>
-          <p className={styles.bold}>Localização</p>
-          <p>
-            {location?.address} - {location?.city} - {location?.state}
-          </p>
-        </div>
-        <div className={styles.info}>
-          <p className={styles.bold}>Sobre</p>
-          <p>{description}</p>
+          <div className={styles.info}>
+            <p className={styles.bold}>Sobre</p>
+            <p className={styles.description}>{description}</p>
+          </div>
         </div>
       </div>
     </AnimatedPage>

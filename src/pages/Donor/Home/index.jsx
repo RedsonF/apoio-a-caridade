@@ -9,8 +9,10 @@ import Header from 'components/Header';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import LogoImage from 'components/LogoImage';
 import ImageIcon from '@mui/icons-material/Image';
 import SearchIcon from '@mui/icons-material/Search';
+
 import Modal from './Modal';
 
 import styles from './styles.module.css';
@@ -76,13 +78,7 @@ export default function Home() {
               className={styles.card}
               key={item._id}
             >
-              <div className={styles.avatar}>
-                {item.logoImage ? (
-                  <img src={item.logoImage} />
-                ) : (
-                  <ImageIcon className={styles.icon} />
-                )}
-              </div>
+              <LogoImage image={item.logoImage} />
               <div className={styles.text}>
                 <span className={styles.name}>{item.name}</span>
                 <p>
