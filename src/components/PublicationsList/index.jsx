@@ -30,31 +30,29 @@ export default function PublicationsList({ publications }) {
             <p className={styles.instituition}>{item.nameInstitution}</p>
           </div>
           <Carousel images={item.images} />
-          <div>
-            <div className={styles.like}>
-              {like ? (
-                <FavoriteRoundedIcon
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    setLike(!like);
-                  }}
-                />
-              ) : (
-                <FavoriteBorderRounded
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    setLike(!like);
-                  }}
-                />
-              )}
-              <p style={{ marginTop: 2 }}>{like ? '31' : '30'}</p>
+          <div className={styles.like}>
+            {like ? (
+              <FavoriteRoundedIcon
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setLike(!like);
+                }}
+              />
+            ) : (
+              <FavoriteBorderRounded
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setLike(!like);
+                }}
+              />
+            )}
+            <p style={{ marginTop: 2 }}>{like ? '31' : '30'}</p>
+          </div>
+          <div style={{ padding: 5 }}>
+            <div className={styles.nameContainer}>
+              <p className={styles.name}>{item.title}</p>
             </div>
-            <div style={{ padding: 5 }}>
-              <div className={styles.nameContainer}>
-                <p className={styles.name}>{item.title}</p>
-              </div>
-              <p className={styles.time}>{relativeTime(item.createdAt)}</p>
-            </div>
+            <p className={styles.time}>{relativeTime(item.createdAt)}</p>
           </div>
         </div>
       ))}

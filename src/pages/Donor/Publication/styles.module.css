@@ -1,19 +1,15 @@
-.img {
-  width: 100%;
-  height: 50vw;
-  margin: 10px auto;
-  border: 1px solid var(--borderColor);
-  border-radius: 10px;
+.like {
   display: flex;
   align-items: center;
-  justify-content: center;
-  position: relative;
+  gap: 5px;
+  margin: 5px;
+  margin-bottom: 0;
 }
 
-.img > img {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
+.like,
+.like p {
+  color: var(--red);
+  font-size: 18px;
 }
 
 .time {
