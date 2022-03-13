@@ -1,5 +1,5 @@
 .form {
-  flex: 3;
+  margin-top: 40px;
 }
 
 .text {
@@ -8,6 +8,7 @@
   justify-content: center;
   font-size: 14px;
   gap: 5px;
+  width: 100%;
 }
 
 .link {

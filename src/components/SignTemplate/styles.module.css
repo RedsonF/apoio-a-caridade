@@ -4,10 +4,10 @@
   flex-direction: column;
   height: 100%;
   gap: 60px;
+  padding-top: 60px;
 }
 
 .title {
-  flex: 1;
   display: flex;
   align-items: flex-end;
   justify-content: center;

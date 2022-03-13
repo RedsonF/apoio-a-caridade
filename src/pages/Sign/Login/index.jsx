@@ -94,7 +94,13 @@ const Login = () => {
               Login
             </Button>
           </div>
-          <div className={styles.text}>
+          <div
+            className={styles.text}
+            style={{
+              position: 'fixed',
+              bottom: 10,
+            }}
+          >
             <p>Não possui uma conta?</p>
             <p onClick={() => navigateToPreSignup()} className={styles.link}>
               Cadastre-se
