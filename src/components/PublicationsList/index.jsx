@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from 'contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { relativeTime } from 'util/conversor';
 import Carousel from 'components/Carousel';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import FavoriteBorderRounded from '@mui/icons-material/FavoriteBorderRounded';
+
 import styles from './styles.module.css';
 
-export default function PublicationsList({ publications }) {
+export default function PublicationsList({ publications, likePub }) {
   const navigate = useNavigate();
-  const { role } = useContext(AuthContext);
-  const [like, setLike] = useState(false);
+  const { role, user } = useContext(AuthContext);
 
   const navigateToPublication = (id) => {
     const type = role === 'donor' ? 'donor' : 'institution';
@@ -31,22 +31,27 @@ export default function PublicationsList({ publications }) {
           </div>
           <Carousel images={item.images} />
           <div className={styles.like}>
-            {like ? (
-              <FavoriteRoundedIcon
-                onClick={(event) => {
-                  event.stopPropagation();
-                  setLike(!like);
-                }}
-              />
-            ) : (
-              <FavoriteBorderRounded
-                onClick={(event) => {
-                  event.stopPropagation();
-                  setLike(!like);
-                }}
-              />
-            )}
-            <p style={{ marginTop: 2 }}>{like ? '31' : '30'}</p>
+            {likePub &&
+              (item.likes.includes(user?._id) ? (
+                <FavoriteRoundedIcon
+                  style={{ fontSize: 28 }}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    likePub({ id: item._id, idUser: user?._id, like: false });
+                  }}
+                />
+              ) : (
+                <FavoriteBorderRounded
+                  style={{ fontSize: 28 }}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    likePub({ id: item._id, idUser: user?._id, like: true });
+                  }}
+                />
+              ))}
+
+            {!likePub && <FavoriteRoundedIcon style={{ fontSize: 28 }} />}
+            <p style={{ marginTop: 2 }}>{item.likes.length}</p>
           </div>
           <div style={{ padding: 5 }}>
             <div className={styles.nameContainer}>
@@ -56,6 +61,7 @@ export default function PublicationsList({ publications }) {
           </div>
         </div>
       ))}
+      {publications.length === 0 && <div className={styles.line} />}
     </div>
   );
 }

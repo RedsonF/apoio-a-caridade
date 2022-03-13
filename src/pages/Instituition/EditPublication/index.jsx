@@ -36,7 +36,7 @@ export default function EditPublication() {
   };
 
   useEffect(async () => {
-    const publication = await getPublicationById(idPublication);
+    const { publication } = await getPublicationById(idPublication);
     init(publication);
   }, []);
 

@@ -100,3 +100,17 @@ export const deletePublication = async (id) => {
     });
   return result;
 };
+
+export const likePublication = async (id, idUser, like) => {
+  let result = false;
+  await api
+    .put(`/publication/like/${id}`, {
+      idUser,
+      like,
+    })
+    .then(() => {
+      result = true;
+    });
+
+  return result;
+};

@@ -22,7 +22,7 @@
 .like,
 .like p {
   color: var(--red);
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .nameContainer {
@@ -41,4 +41,10 @@
 
 .time {
   color: var(--gray-500);
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background: var(--borderColor);
 }

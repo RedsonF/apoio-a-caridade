@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from 'contexts/AuthContext';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from 'services/api';
 import Swal from 'sweetalert2';
@@ -10,30 +11,29 @@ import Header from 'components/Header';
 import Carousel from 'components/Carousel';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import FavoriteBorderRounded from '@mui/icons-material/FavoriteBorderRounded';
+import { likePublication } from 'services/publicationService';
 import LogoImage from 'components/LogoImage';
 
 import styles from './styles.module.css';
 
-const text = `#humanização - Profissionais do Hospital Oceânico Gilson Cantarino, em Niterói, se uniram e compraram palavras cruzadas e caça palavras para doar aos pacientes que estão internados na unidade. A intenção - além de ajudar a passar o tempo - é reduzir a ansiedade, atualizar o pensamento e melhorar a orientação espacial do paciente.
-    
-#Saude #SomosVivaRio #HospitalOceanico`;
-
 const Publication = () => {
+  const { user } = useContext(AuthContext);
+  const { _id: idUser } = user;
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [publication, setPublication] = useState({});
   const [institution, setInstitution] = useState({});
   const [images, setImages] = useState([]);
-  const { title, description, createdAt, idInstitution } = publication;
+  const { title, description, createdAt, idInstitution, likes } = publication;
 
   const { imageInstitution, nameInstitution } = institution;
 
-  useEffect(async () => {
+  const getPublication = async () => {
     try {
       const { data } = await api.get(`/publication/${id}`);
-      console.log(data);
       const { publication: newPublication, institution: newInstitution } = data;
+
       setPublication(newPublication);
       setImages(newPublication.images);
       setInstitution(newInstitution);
@@ -45,20 +45,37 @@ const Publication = () => {
         text: msg,
       });
     }
+  };
+
+  useEffect(() => {
+    getPublication();
   }, []);
 
   const navigateToInstitution = () => {
     navigate(`/donor/institution/${idInstitution}`);
   };
 
-  console.log(imageInstitution);
+  const likePub = async (like) => {
+    const newPublication = { ...publication };
+
+    if (like) {
+      newPublication.likes.push(idUser);
+    } else {
+      const index = publication.likes.indexOf(idUser);
+      newPublication.likes.splice(index, 1);
+    }
+    setPublication(newPublication);
+
+    await likePublication(id, idUser, like);
+    getPublication();
+  };
 
   return (
     <AnimatedPage>
       <Header title="Publicação" path="/donor/feed" />
       <div className="content">
         <div className={styles.instituition}>
-          <LogoImage image={imageInstitution} />
+          <LogoImage image={imageInstitution} size="small" />
           <div className={styles.info}>
             <p onClick={() => navigateToInstitution()} className={styles.name}>
               {nameInstitution}
@@ -68,7 +85,24 @@ const Publication = () => {
         </div>
         <Carousel images={images} />
         <div className={styles.like}>
-          <FavoriteRoundedIcon /> <p style={{ marginTop: 2 }}>30</p>
+          {likes?.includes(user?._id) ? (
+            <FavoriteRoundedIcon
+              style={{ fontSize: 28 }}
+              onClick={(event) => {
+                event.stopPropagation();
+                likePub(false);
+              }}
+            />
+          ) : (
+            <FavoriteBorderRounded
+              style={{ fontSize: 28 }}
+              onClick={(event) => {
+                event.stopPropagation();
+                likePub(true);
+              }}
+            />
+          )}
+          <p style={{ marginTop: 2 }}>{likes?.length}</p>
         </div>
         <div style={{ padding: 5 }}>
           <div style={{ marginTop: 10 }}>

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -10,15 +9,13 @@ import Header from 'components/Header';
 import IconButton from 'components/IconButton';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import DefaultModal from 'components/DefaultModal';
+import LogoImage from 'components/LogoImage';
 import Carousel from 'components/Carousel';
 import { deletePublication } from 'services/publicationService';
 
 import styles from './styles.module.css';
-
-const text = `#humanização - Profissionais do Hospital Oceânico Gilson Cantarino, em Niterói, se uniram e compraram palavras cruzadas e caça palavras para doar aos pacientes que estão internados na unidade. A intenção - além de ajudar a passar o tempo - é reduzir a ansiedade, atualizar o pensamento e melhorar a orientação espacial do paciente.
-    
-#Saude #SomosVivaRio #HospitalOceanico`;
 
 const buttonStyle = {
   background: 'var(--blue)',
@@ -30,15 +27,20 @@ const Publication = () => {
   const navigate = useNavigate();
 
   const [publication, setPublication] = useState({});
+  const [institution, setInstitution] = useState({});
   const [images, setImages] = useState([]);
-  const { title, description, createdAt } = publication;
+  const { title, description, createdAt, likes } = publication;
   const [openModal, setOpenModal] = useState(false);
+
+  const { imageInstitution, nameInstitution } = institution;
 
   useEffect(async () => {
     try {
       const { data } = await api.get(`/publication/${id}`);
-      setPublication(data);
-      setImages(data.images);
+      const { publication: newPublication, institution: newInstitution } = data;
+      setPublication(newPublication);
+      setImages(newPublication.images);
+      setInstitution(newInstitution);
     } catch (err) {
       const { msg } = err.response?.data || '';
       Swal.fire({
@@ -91,25 +93,32 @@ const Publication = () => {
             <EditRoundedIcon className={styles.icon} />
           </IconButton>
         </div>
+
         <div className={styles.instituition}>
-          <div className={styles.avatar}>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPWTD2AY3OrRXXGj-56M883UeszQuqa8tK7g&usqp=CAU" />
-          </div>
+          <LogoImage image={imageInstitution} size="small" />
           <div className={styles.info}>
             <p onClick={() => navigateToHome()} className={styles.name}>
-              Viva Rio
+              {nameInstitution}
             </p>
             <p className={styles.time}>{relativeTime(createdAt)}</p>
           </div>
         </div>
+
         <Carousel images={images} />
 
-        <div style={{ marginTop: 10 }}>
-          <p className={styles.title}>{title}</p>
+        <div className={styles.like}>
+          <FavoriteRoundedIcon style={{ fontSize: 28 }} />
+          <p style={{ marginTop: 2 }}>{likes?.length}</p>
         </div>
 
-        <div style={{ marginTop: 20 }}>
-          <p className={styles.description}>{description}</p>
+        <div style={{ padding: 5 }}>
+          <div style={{ marginTop: 10 }}>
+            <p className={styles.title}>{title}</p>
+          </div>
+
+          <div style={{ marginTop: 20 }}>
+            <p className={styles.description}>{description}</p>
+          </div>
         </div>
       </div>
     </AnimatedPage>

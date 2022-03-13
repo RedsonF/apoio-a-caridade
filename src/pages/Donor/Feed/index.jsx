@@ -8,6 +8,7 @@ import Button from 'components/Button';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import PublicationsList from 'components/PublicationsList';
 import SearchIcon from '@mui/icons-material/Search';
+import { likePublication } from 'services/publicationService';
 import Modal from './Modal';
 
 export default function Feed() {
@@ -15,7 +16,7 @@ export default function Feed() {
   const [publications, setPublications] = useState([]);
   const [filterModal, setFilterModal] = useState(false);
 
-  useEffect(async () => {
+  const getPublications = async () => {
     try {
       const { data } = await api.get('/publication');
       setPublications(data);
@@ -27,6 +28,10 @@ export default function Feed() {
         text: msg,
       });
     }
+  };
+
+  useEffect(() => {
+    getPublications();
   }, []);
 
   const changeSearch = (e) => {
@@ -36,6 +41,22 @@ export default function Feed() {
 
   const changeFilterModal = () => {
     setFilterModal(!filterModal);
+  };
+
+  const likePub = async ({ id, idUser, like }) => {
+    const newPublications = [...publications];
+    const publication = newPublications.find((pub) => pub._id === id);
+
+    if (like) {
+      publication.likes.push(idUser);
+    } else {
+      const index = publication.likes.indexOf(idUser);
+      publication.likes.splice(index, 1);
+    }
+    setPublications(newPublications);
+
+    await likePublication(id, idUser, like);
+    getPublications();
   };
 
   return (
@@ -56,7 +77,10 @@ export default function Feed() {
           </Button>
         </div>
 
-        <PublicationsList publications={publications} />
+        <PublicationsList
+          publications={publications}
+          likePub={(value) => likePub(value)}
+        />
       </div>
     </AnimatedPage>
   );

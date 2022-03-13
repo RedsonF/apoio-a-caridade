@@ -3,14 +3,11 @@
 }
 
 .text {
-  margin-top: 5px;
+  margin: 20px 0;
   display: flex;
   justify-content: center;
   font-size: 14px;
   gap: 5px;
-  position: fixed;
-  bottom: 10px;
-  width: 100%;
 }
 
 .link {

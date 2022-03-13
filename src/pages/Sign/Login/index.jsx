@@ -97,8 +97,8 @@ const Login = () => {
           <div
             className={styles.text}
             style={{
-              position: 'fixed',
-              bottom: 10,
+              position: 'absolute',
+              bottom: 20,
             }}
           >
             <p>Não possui uma conta?</p>
