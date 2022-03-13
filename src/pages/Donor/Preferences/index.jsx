@@ -99,8 +99,9 @@ export default function Preferences() {
   return (
     <AnimatedPage>
       <Header title="Configurações" path="/donor/options" />
-      <div className="centralizedContent">
+      <div className="content">
         <p className={styles.title}>Preferências</p>
+        <div style={{ marginTop: 30 }} />
         <Form>
           <Select
             value={state}
@@ -142,6 +143,7 @@ export default function Preferences() {
             label="ONGs"
           />
         </Form>
+
         <Button
           onClick={() => submit()}
           style={{ width: '100%', marginTop: 20 }}

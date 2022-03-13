@@ -63,8 +63,10 @@ export default function SettingsName() {
   return (
     <AnimatedPage>
       <Header title="Configurações" path="/institution/settings" />
-      <div className="centralizedContent">
+      <div className="content">
         <p className={styles.title}>Nome e Descrição</p>
+        <div style={{ marginTop: 30 }} />
+
         <Form>
           <Input
             value={name}

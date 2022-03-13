@@ -116,8 +116,9 @@ export default function SettingsBankData() {
   return (
     <AnimatedPage>
       <Header title="Configurações" path="/institution/settings" />
-      <div className="centralizedContent">
+      <div className="content">
         <p className={styles.title}>Dados para doação</p>
+        <div style={{ marginTop: 30 }} />
         <Form>
           <Input value={pix} onChange={changePix} label="Pix" />
         </Form>

@@ -88,8 +88,9 @@ export default function SettingsImage() {
   return (
     <AnimatedPage>
       <Header title="Configurações" path="/institution/settings" />
-      <div className="centralizedContent">
+      <div className="content">
         <p className={styles.title}>Logo e Foto de Capa</p>
+        <div style={{ marginTop: 30 }} />
         <div className={styles.img}>
           <img alt="imagem" src={imageUrl} />
           {buttonImage()}
