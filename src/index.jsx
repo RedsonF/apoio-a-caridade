@@ -4,10 +4,6 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
-if (document.getElementById('root') === document.activeElement) {
-  document.getElementById('root').class += 'absolute';
-}
-
 ReactDOM.render(
   <React.StrictMode>
     <App />

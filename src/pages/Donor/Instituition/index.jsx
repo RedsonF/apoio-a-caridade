@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import api from 'services/api';
 import Swal from 'sweetalert2';
 import AnimatedPage from 'animation/AnimatedPage';
@@ -15,6 +15,7 @@ import styles from './styles.module.css';
 
 const Instituition = () => {
   const { id } = useParams();
+  const { state } = useLocation();
   const [institution, setInstitution] = useState({});
   const [publications, setPublications] = useState([]);
   const [mode, setMode] = useState('about');
@@ -53,7 +54,7 @@ const Instituition = () => {
         logoImage={logoImage}
         name={name}
       />
-      <Header title="Instituição" path="/donor/home" />
+      <Header title="Instituição" path={state?.back || '/donor/home'} />
       <div className="content">
         <CoverImage image={coverImage} logo={logoImage || ''} />
         <div style={{ marginTop: 15 }}>
@@ -90,7 +91,10 @@ const Instituition = () => {
             <p>{description}</p>
           </div>
         ) : (
-          <PublicationList publications={publications} />
+          <PublicationList
+            publications={publications}
+            back={`/donor/institution/${id}`}
+          />
         )}
       </div>
     </AnimatedPage>

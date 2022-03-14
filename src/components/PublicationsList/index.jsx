@@ -9,13 +9,17 @@ import FavoriteBorderRounded from '@mui/icons-material/FavoriteBorderRounded';
 
 import styles from './styles.module.css';
 
-export default function PublicationsList({ publications, likePub }) {
+export default function PublicationsList({ publications, likePub, back }) {
   const navigate = useNavigate();
   const { role, user } = useContext(AuthContext);
 
   const navigateToPublication = (id) => {
     const type = role === 'donor' ? 'donor' : 'institution';
-    navigate(`/${type}/publication/${id}`);
+    navigate(`/${type}/publication/${id}`, {
+      state: {
+        back,
+      },
+    });
   };
 
   return (
