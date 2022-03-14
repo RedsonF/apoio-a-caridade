@@ -149,7 +149,7 @@ export default function InstituitionSignup() {
   return (
     <AnimatedPage>
       <SignTemplate>
-        <div className={styles.form}>
+        <div>
           <Form gap={10} transparent>
             <Input
               value={name}
