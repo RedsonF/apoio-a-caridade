@@ -58,55 +58,55 @@ const Login = () => {
   return (
     <AnimatedPage>
       <SignTemplate>
-        <>
-          <div className={styles.form}>
-            <Form gap={10} transparent>
+        <div className={styles.form}>
+          <Form gap={10} transparent>
+            <Input
+              value={email}
+              onChange={changeEmail}
+              type="email"
+              placeholder="Email"
+              error={invaliditys.email}
+            />
+            <div>
               <Input
-                value={email}
-                onChange={changeEmail}
-                type="email"
-                placeholder="Email"
-                error={invaliditys.email}
+                value={password}
+                onChange={changePassword}
+                type="password"
+                placeholder="Senha"
+                error={invaliditys.password}
               />
-              <div>
-                <Input
-                  value={password}
-                  onChange={changePassword}
-                  type="password"
-                  placeholder="Senha"
-                  error={invaliditys.password}
-                />
-                <div className={styles.text}>
-                  <p>Esqueceu sua senha?</p>
-                  <p
-                    onClick={() => navigateToPreSignup()}
-                    className={styles.link}
-                  >
-                    clique aqui
-                  </p>
-                </div>
+              <div className={styles.text}>
+                <p>Esqueceu sua senha?</p>
+                <p
+                  onClick={() => navigateToPreSignup()}
+                  className={styles.link}
+                >
+                  clique aqui
+                </p>
               </div>
-            </Form>
-            <Button
-              onClick={() => submit()}
-              style={{ width: '100%', marginTop: 20 }}
-            >
-              Login
-            </Button>
-          </div>
-          <div
-            className={styles.text}
-            style={{
-              position: 'absolute',
-              bottom: 20,
-            }}
+            </div>
+          </Form>
+          <Button
+            onClick={() => submit()}
+            style={{ width: '100%', marginTop: 20 }}
           >
-            <p>Não possui uma conta?</p>
-            <p onClick={() => navigateToPreSignup()} className={styles.link}>
-              Cadastre-se
-            </p>
-          </div>
-        </>
+            Login
+          </Button>
+        </div>
+        <div
+          className={styles.text}
+          style={{
+            position: 'absolute',
+            bottom: 20,
+            left: '50%',
+            transform: 'translateX(-50%)',
+          }}
+        >
+          <p>Não possui uma conta?</p>
+          <p onClick={() => navigateToPreSignup()} className={styles.link}>
+            Cadastre-se
+          </p>
+        </div>
       </SignTemplate>
     </AnimatedPage>
   );

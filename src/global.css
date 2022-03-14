@@ -21,10 +21,6 @@ html {
   background: var(--white);
 }
 
-#root.absolute {
-  position: absolute;
-}
-
 :root {
   --white: #fff;
   --black: #3d3f49;
