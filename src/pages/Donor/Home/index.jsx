@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from 'contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import api from 'services/api';
 import Swal from 'sweetalert2';
@@ -10,24 +11,66 @@ import Input from 'components/Input';
 import Button from 'components/Button';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import LogoImage from 'components/LogoImage';
-import ImageIcon from '@mui/icons-material/Image';
 import SearchIcon from '@mui/icons-material/Search';
-
+import {
+  getStates,
+  getCitys,
+  getStateByName,
+  getCityByName,
+} from 'util/locations';
+import { getDonor } from 'services/donorService';
 import Modal from './Modal';
 
 import styles from './styles.module.css';
 
 export default function Home() {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  const { _id: id } = user;
 
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [instituitions, setInstituitions] = useState([]);
   const [filterModal, setFilterModal] = useState(false);
+  const states = getStates();
+  const [state, setState] = useState({ value: -1, label: 'Todos' });
+  const [citys, setCitys] = useState([]);
+  const [city, setCity] = useState({ value: -1, label: 'Todas' });
+  const [types, setTypes] = useState([
+    { value: 'beneficentes', label: 'Entidades beneficentes', selected: false },
+    { value: 'fundações', label: 'Fundações', selected: false },
+    { value: 'institutos', label: 'Institutos', selected: false },
+    { value: 'ongs', label: 'ONGs', selected: false },
+  ]);
 
-  useEffect(async () => {
+  const isClearable = (value) => value !== -1;
+
+  const data = {
+    states,
+    state,
+    citys,
+    city,
+    types,
+    isClearable,
+  };
+
+  const getInstitutions = async () => {
+    setFilterModal(false);
+    const newState = state.value !== -1 ? state.label : '';
+    const newCity = city.value !== -1 ? city.label : '';
     try {
-      const { data } = await api.get('/institution');
-      setInstituitions(data);
+      const { data: newData } = await api.get('/institution', {
+        params: {
+          name: search,
+          state: newState,
+          city: newCity,
+          beneficente: types[0].selected,
+          fundacao: types[1].selected,
+          instituto: types[2].selected,
+          ong: types[3].selected,
+        },
+      });
+      setInstituitions(newData);
     } catch (err) {
       const { msg } = err.response?.data || '';
       Swal.fire({
@@ -36,7 +79,39 @@ export default function Home() {
         text: msg,
       });
     }
+  };
+
+  const initPreferences = async (preferences) => {
+    const newState = getStateByName(preferences.state);
+    const { newCitys } = await getCitys(newState.value);
+    const newCity = await getCityByName(preferences.city, newCitys);
+
+    setState(newState);
+    setCitys(newCitys);
+    setCity(newCity);
+
+    const newTypes = types.map((type) => {
+      const newType = { ...type };
+      if (preferences.typesOfInstitution.includes(newType.value)) {
+        newType.selected = true;
+      }
+      return newType;
+    });
+
+    setTypes(newTypes);
+  };
+
+  useEffect(async () => {
+    const newDonor = await getDonor(id);
+    await initPreferences(newDonor.preferences);
+    setLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      getInstitutions();
+    }
+  }, [search, loading]);
 
   const changeSearch = (e) => {
     const { value } = e.target;
@@ -47,13 +122,22 @@ export default function Home() {
     setFilterModal(!filterModal);
   };
 
-  const navigateToInstitution = (id) => {
-    navigate(`/donor/institution/${id}`);
+  const navigateToInstitution = (idInstitution) => {
+    navigate(`/donor/institution/${idInstitution}`);
   };
 
   return (
     <AnimatedPage>
-      <Modal filterModal={filterModal} changeFilterModal={changeFilterModal} />
+      <Modal
+        filterModal={filterModal}
+        changeFilterModal={changeFilterModal}
+        data={data}
+        setState={(value) => setState(value)}
+        setCity={(value) => setCity(value)}
+        setCitys={(value) => setCitys(value)}
+        setTypes={(value) => setTypes(value)}
+        getInstitutions={() => getInstitutions()}
+      />
       <Header title="Início" />
       <div className="content">
         <div style={{ marginTop: 10 }}>

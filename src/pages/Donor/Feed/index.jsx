@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from 'contexts/AuthContext';
 import api from 'services/api';
 import Swal from 'sweetalert2';
 import AnimatedPage from 'animation/AnimatedPage';
@@ -8,18 +9,62 @@ import Button from 'components/Button';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import PublicationsList from 'components/PublicationsList';
 import SearchIcon from '@mui/icons-material/Search';
+import {
+  getStates,
+  getCitys,
+  getStateByName,
+  getCityByName,
+} from 'util/locations';
 import { likePublication } from 'services/publicationService';
+import { getDonor } from 'services/donorService';
 import Modal from './Modal';
 
 export default function Feed() {
+  const { user } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [publications, setPublications] = useState([]);
   const [filterModal, setFilterModal] = useState(false);
+  const states = getStates();
+  const [state, setState] = useState({ value: -1, label: 'Todos' });
+  const [citys, setCitys] = useState([]);
+  const [city, setCity] = useState({ value: -1, label: 'Todas' });
+  const [types, setTypes] = useState([
+    { value: 'beneficentes', label: 'Entidades beneficentes', selected: false },
+    { value: 'fundações', label: 'Fundações', selected: false },
+    { value: 'institutos', label: 'Institutos', selected: false },
+    { value: 'ongs', label: 'ONGs', selected: false },
+  ]);
+
+  const isClearable = (value) => value !== -1;
+
+  const data = {
+    states,
+    state,
+    citys,
+    city,
+    types,
+    isClearable,
+  };
 
   const getPublications = async () => {
+    setFilterModal(false);
+    const newState = state.value !== -1 ? state.label : '';
+    const newCity = city.value !== -1 ? city.label : '';
     try {
-      const { data } = await api.get('/publication');
-      setPublications(data);
+      const { data: newData } = await api.get('/publication', {
+        params: {
+          name: search,
+          state: newState,
+          city: newCity,
+          beneficente: types[0].selected,
+          fundacao: types[1].selected,
+          instituto: types[2].selected,
+          ong: types[3].selected,
+        },
+      });
+      setPublications(newData);
     } catch (err) {
       const { msg } = err.response?.data || '';
       Swal.fire({
@@ -30,9 +75,37 @@ export default function Feed() {
     }
   };
 
-  useEffect(() => {
-    getPublications();
+  const initPreferences = async (preferences) => {
+    const newState = getStateByName(preferences.state);
+    const { newCitys } = await getCitys(newState.value);
+    const newCity = await getCityByName(preferences.city, newCitys);
+
+    setState(newState);
+    setCitys(newCitys);
+    setCity(newCity);
+
+    const newTypes = types.map((type) => {
+      const newType = { ...type };
+      if (preferences.typesOfInstitution.includes(newType.value)) {
+        newType.selected = true;
+      }
+      return newType;
+    });
+
+    setTypes(newTypes);
+  };
+
+  useEffect(async () => {
+    const newDonor = await getDonor(user?._id);
+    await initPreferences(newDonor.preferences);
+    setLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      getPublications();
+    }
+  }, [search, loading]);
 
   const changeSearch = (e) => {
     const { value } = e.target;
@@ -61,7 +134,16 @@ export default function Feed() {
 
   return (
     <AnimatedPage>
-      <Modal filterModal={filterModal} changeFilterModal={changeFilterModal} />
+      <Modal
+        filterModal={filterModal}
+        changeFilterModal={changeFilterModal}
+        data={data}
+        setState={(value) => setState(value)}
+        setCity={(value) => setCity(value)}
+        setCitys={(value) => setCitys(value)}
+        setTypes={(value) => setTypes(value)}
+        getPublications={() => getPublications()}
+      />
       <Header title="Feed" />
       <div className="content">
         <div style={{ marginTop: 10 }}>

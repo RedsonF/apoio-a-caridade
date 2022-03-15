@@ -1,4 +1,4 @@
-import { cpf } from 'cpf-cnpj-validator';
+import { cpf, cnpj } from 'cpf-cnpj-validator';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 
@@ -39,6 +39,8 @@ export const convertToSigla = (state, states) => {
 export const maskCpf = (newCpf) => cpf.format(newCpf);
 
 export const stripCpf = (newCpf) => cpf.strip(newCpf);
+
+export const stripCnpj = (newCnpj) => cnpj.strip(newCnpj);
 
 export const maskPhone = (phone) => {
   if (phone) {

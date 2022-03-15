@@ -8,7 +8,7 @@ export default function LogoImage({ image, size }) {
     switch (size) {
       case 'small':
         return { height: 60, width: 60, minWidth: 60 };
-      case 'institution':
+      case 'big':
         return { height: 100, width: 100 };
       default:
         return {};

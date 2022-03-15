@@ -1,4 +1,5 @@
 import React from 'react';
+import LogoImage from 'components/LogoImage';
 import CustomModal from 'components/CustomModal';
 
 import styles from './styles.module.css';
@@ -21,8 +22,8 @@ const Modal = ({
       <div className={styles.container}>
         <p className={styles.title}>Doação</p>
         <section className={styles.line} />
-        <div className={styles.img}>
-          <img alt="imagem" src={logoImage} />
+        <div className={styles.image}>
+          <LogoImage image={logoImage} size="big" />
         </div>
         <p className={styles.name}>{name}</p>
         <div className={styles.box}>

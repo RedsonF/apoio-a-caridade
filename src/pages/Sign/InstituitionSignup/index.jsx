@@ -6,6 +6,7 @@ import AnimatedPage from 'animation/AnimatedPage';
 import SignTemplate from 'components/SignTemplate';
 import Form from 'components/Form';
 import Input from 'components/Input';
+import InputMask from 'components/InputMask';
 import Select from 'components/Select';
 import Button from 'components/Button';
 import { signup } from 'services/institutionService';
@@ -13,8 +14,8 @@ import {
   validateEmail,
   validatePassword,
   validateGeneric,
-  validateName,
 } from 'util/validate';
+import { stripCnpj } from 'util/conversor';
 
 import styles from './styles.module.css';
 
@@ -30,6 +31,12 @@ export default function InstituitionSignup() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [address, setAddress] = useState('');
+  const types = [
+    { value: 'beneficente', label: 'Entidade beneficente' },
+    { value: 'fundação', label: 'Fundação' },
+    { value: 'instituto', label: 'Instituto' },
+    { value: 'ong', label: 'ONG' },
+  ];
   const [type, setType] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [invaliditys, setInvaliditys] = useState({
@@ -91,9 +98,13 @@ export default function InstituitionSignup() {
     setAddress(value);
   };
 
-  const changeType = (e) => {
-    const { value } = e.target;
-    setType(value);
+  const changeType = (newType) => {
+    if (newType) {
+      const { value, label } = newType;
+      setType({ value, label });
+    } else {
+      setType('');
+    }
   };
 
   const changeCnpj = (e) => {
@@ -108,17 +119,22 @@ export default function InstituitionSignup() {
   const validate = () => {
     const newInvaliditys = {};
 
-    newInvaliditys.name = validateName(name);
+    newInvaliditys.name = validateGeneric(name, 'Informe o nome');
     newInvaliditys.email = validateEmail(email);
     newInvaliditys.password = validatePassword(password);
-    newInvaliditys.state = validateGeneric(state.label, 'Informe o estado!');
-    newInvaliditys.city = validateGeneric(city.label, 'Informe a cidade!');
-    newInvaliditys.address = validateGeneric(address, 'Informe o endereço!');
-    newInvaliditys.type = validateGeneric(
-      address,
-      'Informe o tipo de instituição!'
+    newInvaliditys.state = validateGeneric(
+      state.label || '',
+      'Informe o estado'
     );
-    newInvaliditys.cnpj = validateGeneric(address, 'Informe o cnpj!');
+    newInvaliditys.city = validateGeneric(city.label || '', 'Informe a cidade');
+    newInvaliditys.address = validateGeneric(address, 'Informe o endereço');
+    newInvaliditys.type = validateGeneric(
+      type,
+      'Informe o tipo de instituição'
+    );
+
+    const newCnpj = stripCnpj(cnpj);
+    newInvaliditys.cnpj = newCnpj.length === 13 ? '' : 'Informe o CNPJ';
 
     setInvaliditys(newInvaliditys);
 
@@ -137,7 +153,7 @@ export default function InstituitionSignup() {
         state.label,
         city.label,
         address,
-        type,
+        type.value,
         cnpj
       );
       if (res) {
@@ -193,13 +209,15 @@ export default function InstituitionSignup() {
               placeholder="Endereço"
               error={invaliditys.address}
             />
-            <Input
+            <Select
               value={type}
               onChange={changeType}
+              options={types}
               placeholder="Tipo de Instituição"
+              isClearable={isClearable(type.value)}
               error={invaliditys.type}
             />
-            <Input
+            <InputMask
               value={cnpj}
               onChange={changeCnpj}
               placeholder="CNPJ"
