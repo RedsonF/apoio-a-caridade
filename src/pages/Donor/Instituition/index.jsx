@@ -44,7 +44,6 @@ const Instituition = () => {
   const changeDonateModal = () => {
     setDonateModal(!donateModal);
   };
-  console.log(logoImage);
 
   return (
     <AnimatedPage>

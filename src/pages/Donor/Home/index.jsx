@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable arrow-body-style */
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from 'contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +20,7 @@ import {
   getCityByName,
 } from 'util/locations';
 import { getDonor } from 'services/donorService';
+import qs from 'qs';
 import Modal from './Modal';
 
 import styles from './styles.module.css';
@@ -28,6 +30,7 @@ export default function Home() {
   const { user } = useContext(AuthContext);
   const { _id: id } = user;
 
+  const [n, setN] = useState(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [instituitions, setInstituitions] = useState([]);
@@ -37,11 +40,18 @@ export default function Home() {
   const [citys, setCitys] = useState([]);
   const [city, setCity] = useState({ value: -1, label: 'Todas' });
   const [types, setTypes] = useState([
-    { value: 'beneficentes', label: 'Entidades beneficentes', selected: false },
-    { value: 'fundações', label: 'Fundações', selected: false },
-    { value: 'institutos', label: 'Institutos', selected: false },
-    { value: 'ongs', label: 'ONGs', selected: false },
+    {
+      value: 'beneficente',
+      label: 'Entidades beneficentes',
+      selected: false,
+    },
+    { value: 'fundação', label: 'Fundações', selected: false },
+    { value: 'instituto', label: 'Institutos', selected: false },
+    { value: 'ong', label: 'ONGs', selected: false },
   ]);
+  const typesSelected = types
+    .filter((type) => type.selected)
+    .map((type) => type.value);
 
   const isClearable = (value) => value !== -1;
 
@@ -51,7 +61,24 @@ export default function Home() {
     citys,
     city,
     types,
+    typesSelected,
     isClearable,
+  };
+
+  const changeN = () => {
+    let count = 0;
+
+    if (state.value !== -1) {
+      count += 1;
+    }
+    if (city.value !== -1) {
+      count += 1;
+    }
+
+    const list = types.filter((type) => !type.selected);
+    count += list.length;
+
+    setN(count);
   };
 
   const getInstitutions = async () => {
@@ -64,13 +91,11 @@ export default function Home() {
           name: search,
           state: newState,
           city: newCity,
-          beneficente: types[0].selected,
-          fundacao: types[1].selected,
-          instituto: types[2].selected,
-          ong: types[3].selected,
+          types: typesSelected,
         },
       });
       setInstituitions(newData);
+      changeN();
     } catch (err) {
       const { msg } = err.response?.data || '';
       Swal.fire({
@@ -149,7 +174,7 @@ export default function Home() {
             icon={<FilterAltIcon style={{ fontSize: 16 }} />}
             small
           >
-            filtros
+            {`FILTROS (${n})`}
           </Button>
         </div>
         <div style={{ marginTop: 20 }}>

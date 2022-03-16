@@ -31,12 +31,14 @@ export default function Feed() {
   const [citys, setCitys] = useState([]);
   const [city, setCity] = useState({ value: -1, label: 'Todas' });
   const [types, setTypes] = useState([
-    { value: 'beneficentes', label: 'Entidades beneficentes', selected: false },
-    { value: 'fundações', label: 'Fundações', selected: false },
-    { value: 'institutos', label: 'Institutos', selected: false },
-    { value: 'ongs', label: 'ONGs', selected: false },
+    { value: 'beneficente', label: 'Entidades beneficentes', selected: false },
+    { value: 'fundação', label: 'Fundações', selected: false },
+    { value: 'instituto', label: 'Institutos', selected: false },
+    { value: 'ong', label: 'ONGs', selected: false },
   ]);
-
+  const typesSelected = types
+    .filter((type) => type.selected)
+    .map((type) => type.value);
   const isClearable = (value) => value !== -1;
 
   const data = {
@@ -45,6 +47,7 @@ export default function Feed() {
     citys,
     city,
     types,
+    typesSelected,
     isClearable,
   };
 
@@ -55,13 +58,10 @@ export default function Feed() {
     try {
       const { data: newData } = await api.get('/publication', {
         params: {
-          name: search,
+          title: search,
           state: newState,
           city: newCity,
-          beneficente: types[0].selected,
-          fundacao: types[1].selected,
-          instituto: types[2].selected,
-          ong: types[3].selected,
+          types: typesSelected,
         },
       });
       setPublications(newData);
@@ -76,13 +76,17 @@ export default function Feed() {
   };
 
   const initPreferences = async (preferences) => {
-    const newState = getStateByName(preferences.state);
-    const { newCitys } = await getCitys(newState.value);
-    const newCity = await getCityByName(preferences.city, newCitys);
+    if (preferences.state) {
+      const newState = getStateByName(preferences.state);
+      const { newCitys } = await getCitys(newState.value);
+      setState(newState);
+      setCitys(newCitys);
 
-    setState(newState);
-    setCitys(newCitys);
-    setCity(newCity);
+      if (preferences.city) {
+        const newCity = await getCityByName(preferences.city, newCitys);
+        setCity(newCity);
+      }
+    }
 
     const newTypes = types.map((type) => {
       const newType = { ...type };

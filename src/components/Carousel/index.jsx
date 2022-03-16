@@ -13,7 +13,7 @@ const closeButtonStyle = {
   color: 'var(--white)',
 };
 
-export default function Carousel({ images, removeImage, removeMode }) {
+export default function Carousel({ images, removeImage, removeMode, feed }) {
   const [index, setIndex] = useState(0);
   const [flag, setFlag] = useState(false);
 
@@ -59,7 +59,7 @@ export default function Carousel({ images, removeImage, removeMode }) {
   };
 
   return (
-    <div className={styles.itemsWrapper}>
+    <div className={feed ? styles.itemsWrapperFeed : styles.itemsWrapper}>
       {images.length === 0 ? (
         <ImageRoundedIcon className={styles.icon} />
       ) : (

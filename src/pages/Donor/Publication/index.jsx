@@ -80,7 +80,7 @@ const Publication = () => {
       <div className="content">
         <div className={styles.instituition}>
           <LogoImage image={imageInstitution} size="small" />
-          <div className={styles.info}>
+          <div>
             <p onClick={() => navigateToInstitution()} className={styles.name}>
               {nameInstitution}
             </p>

@@ -7,13 +7,8 @@ import AnimatedPage from 'animation/AnimatedPage';
 import api from 'services/api';
 import Swal from 'sweetalert2';
 import Header from 'components/Header';
-import Input from 'components/Input';
-import Button from 'components/Button';
-import FilterAltRoundedIcon from '@mui/icons-material/FilterAltRounded';
-import ImageIcon from '@mui/icons-material/Image';
 import IconButton from 'components/IconButton';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import PublicationsList from 'components/PublicationsList';
 
 import styles from './styles.module.css';
@@ -32,7 +27,6 @@ export default function Publications() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [search, setSearch] = useState('');
   const [publications, setPublications] = useState([]);
 
   useEffect(async () => {
@@ -50,11 +44,6 @@ export default function Publications() {
     }
   }, []);
 
-  const changeSearch = (e) => {
-    const { value } = e.target;
-    setSearch(value);
-  };
-
   const navigateToAddPublication = () => {
     navigate('/institution/add-publication');
   };
@@ -63,21 +52,6 @@ export default function Publications() {
     <AnimatedPage>
       <Header title="Publicações" />
       <div className="content">
-        <div style={{ marginTop: 10 }}>
-          <Input
-            value={search}
-            onChange={changeSearch}
-            icon={<SearchRoundedIcon />}
-          />
-        </div>
-        <div style={{ marginTop: 15 }}>
-          <Button
-            icon={<FilterAltRoundedIcon style={{ fontSize: 16 }} />}
-            small
-          >
-            filtros
-          </Button>
-        </div>
         <PublicationsList publications={publications} />
         <IconButton
           onClick={() => navigateToAddPublication()}

@@ -6,9 +6,11 @@
 }
 
 .card {
-  border-top: 1px solid var(--gray-200);
+  border: 1px solid var(--gray-200);
   width: 100%;
-  padding: 30px 0;
+  padding: 10px 0px;
+  margin-top: 20px;
+  border-radius: 5px;
 }
 
 .like {
@@ -25,17 +27,21 @@
   font-size: 20px;
 }
 
-.nameContainer {
-  margin: 5px 0;
+.instituition {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0 15px;
 }
 
-.instituition {
+.name {
   font-size: 18px;
   color: var(--blue);
 }
 
-.name {
-  font-size: 20px;
+.title {
+  font-size: 18px;
   font-weight: 600;
 }
 
