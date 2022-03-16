@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from 'contexts/AuthContext';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import api from 'services/api';
 import Swal from 'sweetalert2';
 import { relativeTime } from 'util/conversor';
@@ -20,6 +20,7 @@ const Publication = () => {
   const { user } = useContext(AuthContext);
   const { _id: idUser } = user;
   const { id } = useParams();
+  const { state } = useLocation();
   const navigate = useNavigate();
 
   const [publication, setPublication] = useState({});
@@ -33,7 +34,6 @@ const Publication = () => {
     try {
       const { data } = await api.get(`/publication/${id}`);
       const { publication: newPublication, institution: newInstitution } = data;
-
       setPublication(newPublication);
       setImages(newPublication.images);
       setInstitution(newInstitution);
@@ -52,7 +52,11 @@ const Publication = () => {
   }, []);
 
   const navigateToInstitution = () => {
-    navigate(`/donor/institution/${idInstitution}`);
+    navigate(`/donor/institution/${idInstitution}`, {
+      state: {
+        back: `/donor/publication/${id}`,
+      },
+    });
   };
 
   const likePub = async (like) => {
@@ -72,11 +76,11 @@ const Publication = () => {
 
   return (
     <AnimatedPage>
-      <Header title="Publicação" path="/donor/feed" />
+      <Header title="Publicação" path={state?.back || '/donor/feed'} />
       <div className="content">
         <div className={styles.instituition}>
           <LogoImage image={imageInstitution} size="small" />
-          <div className={styles.info}>
+          <div>
             <p onClick={() => navigateToInstitution()} className={styles.name}>
               {nameInstitution}
             </p>

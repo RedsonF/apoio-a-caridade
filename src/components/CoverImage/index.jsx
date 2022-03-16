@@ -14,7 +14,7 @@ export default function CoverImage({ image, logo }) {
       )}
       {logo !== undefined && (
         <div className={styles.logo}>
-          <LogoImage image={logo} size="small" />
+          <LogoImage image={logo} />
         </div>
       )}
     </div>

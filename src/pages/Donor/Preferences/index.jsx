@@ -25,10 +25,10 @@ export default function Preferences() {
   const [citys, setCitys] = useState([]);
   const [city, setCity] = useState({ value: -1, label: 'Todas' });
   const [types, setTypes] = useState([
-    { value: 'beneficentes', label: 'Entidades beneficentes', selected: false },
-    { value: 'fundações', label: 'Fundações', selected: false },
-    { value: 'institutos', label: 'Institutos', selected: false },
-    { value: 'ongs', label: 'ONGs', selected: false },
+    { value: 'beneficente', label: 'Entidades beneficentes', selected: false },
+    { value: 'fundação', label: 'Fundações', selected: false },
+    { value: 'instituto', label: 'Institutos', selected: false },
+    { value: 'ong', label: 'ONGs', selected: false },
   ]);
   const typesSelected = types
     .filter((type) => type.selected)
@@ -37,13 +37,17 @@ export default function Preferences() {
   const isClearable = (value) => value !== -1;
 
   const initPreferences = async (preferences) => {
-    const newState = getStateByName(preferences.state);
-    const { newCitys } = await getCitys(newState.value);
-    const newCity = await getCityByName(preferences.city, newCitys);
+    if (preferences.state) {
+      const newState = getStateByName(preferences.state);
+      const { newCitys } = await getCitys(newState.value);
+      setState(newState);
+      setCitys(newCitys);
 
-    setState(newState);
-    setCitys(newCitys);
-    setCity(newCity);
+      if (preferences.city) {
+        const newCity = await getCityByName(preferences.city, newCitys);
+        setCity(newCity);
+      }
+    }
 
     const newTypes = types.map((type) => {
       const newType = { ...type };

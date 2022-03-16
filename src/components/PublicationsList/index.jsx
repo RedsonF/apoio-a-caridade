@@ -4,20 +4,26 @@ import { AuthContext } from 'contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { relativeTime } from 'util/conversor';
 import Carousel from 'components/Carousel';
+import LogoImage from 'components/LogoImage';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import FavoriteBorderRounded from '@mui/icons-material/FavoriteBorderRounded';
 
 import styles from './styles.module.css';
 
-export default function PublicationsList({ publications, likePub }) {
+export default function PublicationsList({ publications, likePub, back }) {
   const navigate = useNavigate();
   const { role, user } = useContext(AuthContext);
 
   const navigateToPublication = (id) => {
     const type = role === 'donor' ? 'donor' : 'institution';
-    navigate(`/${type}/publication/${id}`);
+    navigate(`/${type}/publication/${id}`, {
+      state: {
+        back,
+      },
+    });
   };
 
+  console.log(publications);
   return (
     <div className={styles.list}>
       {publications.map((item) => (
@@ -26,10 +32,19 @@ export default function PublicationsList({ publications, likePub }) {
           className={styles.card}
           key={item._id}
         >
-          <div style={{ padding: 5 }}>
-            <p className={styles.instituition}>{item.nameInstitution}</p>
+          <div className={styles.instituition}>
+            <LogoImage
+              image={item.idInstitution.logoInstitution}
+              size="small"
+            />
+            <div className={styles.info}>
+              <p className={styles.name}>
+                {item.idInstitution.name || item.nameInstitution}
+              </p>
+              <p className={styles.time}>{relativeTime(item.createdAt)}</p>
+            </div>
           </div>
-          <Carousel images={item.images} />
+          <Carousel images={item.images} feed />
           <div className={styles.like}>
             {likePub &&
               (item.likes.includes(user?._id) ? (
@@ -55,9 +70,8 @@ export default function PublicationsList({ publications, likePub }) {
           </div>
           <div style={{ padding: 5 }}>
             <div className={styles.nameContainer}>
-              <p className={styles.name}>{item.title}</p>
+              <p className={styles.title}>{item.title}</p>
             </div>
-            <p className={styles.time}>{relativeTime(item.createdAt)}</p>
           </div>
         </div>
       ))}
