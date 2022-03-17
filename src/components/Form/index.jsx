@@ -6,7 +6,7 @@ export default function Form({ children, gap, transparent }) {
   return (
     <div
       className={transparent ? styles.container2 : styles.container}
-      style={{ gap: gap || 5 }}
+      style={{ gap: gap || 10 }}
     >
       {children}
     </div>

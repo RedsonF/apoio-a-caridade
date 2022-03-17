@@ -22,6 +22,7 @@ import Modal from './Modal';
 export default function Feed() {
   const { user } = useContext(AuthContext);
 
+  const [n, setN] = useState(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [publications, setPublications] = useState([]);
@@ -51,6 +52,22 @@ export default function Feed() {
     isClearable,
   };
 
+  const changeN = () => {
+    let count = 0;
+
+    if (state.value !== -1) {
+      count += 1;
+    }
+    if (city.value !== -1) {
+      count += 1;
+    }
+
+    const list = types.filter((type) => type.selected);
+    count += list.length;
+
+    setN(count);
+  };
+
   const getPublications = async () => {
     setFilterModal(false);
     const newState = state.value !== -1 ? state.label : '';
@@ -65,6 +82,7 @@ export default function Feed() {
         },
       });
       setPublications(newData);
+      changeN();
     } catch (err) {
       const { msg } = err.response?.data || '';
       Swal.fire({
@@ -159,7 +177,7 @@ export default function Feed() {
             icon={<FilterAltIcon style={{ fontSize: 16 }} />}
             small
           >
-            filtros
+            {`FILTROS (${n})`}
           </Button>
         </div>
 

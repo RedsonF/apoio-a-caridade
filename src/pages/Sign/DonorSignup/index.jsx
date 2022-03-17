@@ -69,14 +69,14 @@ const DonorSignup = () => {
                 value={email}
                 onChange={changeEmail}
                 type="email"
-                placeholder="Email"
+                placeholder="Email*"
                 error={invaliditys.email}
               />
               <Input
                 value={password}
                 onChange={changePassword}
                 type="password"
-                placeholder="Senha"
+                placeholder="Senha*"
                 error={invaliditys.password}
               />
             </Form>

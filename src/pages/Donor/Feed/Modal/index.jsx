@@ -17,8 +17,7 @@ const Modal = ({
   setTypes,
   getPublications,
 }) => {
-  const { states, state, citys, city, types, isClearable, typesSelected } =
-    data;
+  const { states, state, citys, city, types, isClearable } = data;
 
   const changeCity = (location) => {
     const value = location?.value ?? -1;
@@ -42,11 +41,9 @@ const Modal = ({
     const list = [...types];
     const newValue = !list[index].selected;
 
-    if (typesSelected.length > 1 || newValue) {
-      list[index].selected = newValue;
+    list[index].selected = newValue;
 
-      setTypes(list);
-    }
+    setTypes(list);
   };
 
   return (

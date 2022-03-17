@@ -75,18 +75,18 @@ export default function SettingsBankData() {
     const newInvaliditys = {};
 
     if (bank || branch || account) {
-      const bankInvalidity = validateGeneric(bank, 'Informe o banco!');
+      const bankInvalidity = validateGeneric(bank, 'Informe o banco');
       newInvaliditys.bank = bankInvalidity;
 
-      const branchInvalidity = validateGeneric(branch, 'Informe a agência!');
+      const branchInvalidity = validateGeneric(branch, 'Informe a agência');
       newInvaliditys.branch = branchInvalidity;
 
-      const accountInvalidity = validateGeneric(account, 'Informe a conta!');
+      const accountInvalidity = validateGeneric(account, 'Informe a conta');
       newInvaliditys.account = accountInvalidity;
 
       if (bankInvalidity || branchInvalidity || accountInvalidity) {
         newInvaliditys.bankData =
-          'Informe todos os dados bancários ou deixe todos vazios!';
+          'Informe todos os dados bancários ou deixe todos vazios';
       }
     }
 

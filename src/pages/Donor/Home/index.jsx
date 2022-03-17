@@ -75,7 +75,7 @@ export default function Home() {
       count += 1;
     }
 
-    const list = types.filter((type) => !type.selected);
+    const list = types.filter((type) => type.selected);
     count += list.length;
 
     setN(count);

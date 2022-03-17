@@ -1,6 +1,5 @@
 import React from 'react';
-import ImageIcon from '@mui/icons-material/Image';
-
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import styles from './styles.module.css';
 
 export default function LogoImage({ image, size }) {
@@ -19,7 +18,7 @@ export default function LogoImage({ image, size }) {
       {image ? (
         <img alt="imagem" src={image} />
       ) : (
-        <ImageIcon className={styles.icon} />
+        <PersonRoundedIcon className={styles.icon} />
       )}
     </div>
   );

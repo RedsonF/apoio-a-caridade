@@ -4,6 +4,8 @@ import { AuthContext } from 'contexts/AuthContext';
 import { getInstitution, imageInstitution } from 'services/institutionService';
 import AnimatedPage from 'animation/AnimatedPage';
 import Header from 'components/Header';
+import CoverImage from 'components/CoverImage';
+import LogoImage from 'components/LogoImage';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 import styles from './styles.module.css';
@@ -92,11 +94,11 @@ export default function SettingsImage() {
         <p className={styles.title}>Logo e Foto de Capa</p>
         <div style={{ marginTop: 30 }} />
         <div className={styles.img}>
-          <img alt="imagem" src={imageUrl} />
+          <CoverImage image={imageUrl} />
           {buttonImage()}
         </div>
         <div className={styles.logo}>
-          <img alt="Imagem" src={logoUrl} />
+          <LogoImage image={logoUrl} size="big" />
           <label htmlFor="button-logo">
             <input
               type="file"

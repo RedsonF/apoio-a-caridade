@@ -16,6 +16,8 @@ export default function AddPublication() {
   const [description, setDescription] = useState('');
   const [invaliditys, setInvaliditys] = useState({
     name: '',
+    description: '',
+    images: '',
   });
   const data = {
     images,

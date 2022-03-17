@@ -5,8 +5,9 @@ import Header from 'components/Header';
 import Form from 'components/Form';
 import Input from 'components/Input';
 import Button from 'components/Button';
+import Select from 'components/Select';
 import { updateInstitution, getInstitution } from 'services/institutionService';
-import { validateName } from 'util/validate';
+import { validateGeneric } from 'util/validate';
 
 import styles from './styles.module.css';
 
@@ -15,15 +16,31 @@ export default function SettingsName() {
   const { _id: id } = user;
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [type, setType] = useState('');
+  const types = [
+    { value: 'beneficente', label: 'Entidade beneficente' },
+    { value: 'fundação', label: 'Fundação' },
+    { value: 'instituto', label: 'Instituto' },
+    { value: 'ong', label: 'ONG' },
+  ];
   const [invaliditys, setInvaliditys] = useState({
     name: '',
   });
+  const isClearable = (value) => value !== -1;
 
   const init = (institution) => {
-    const { name: newName, description: newDescription } = institution;
+    const {
+      name: newName,
+      description: newDescription,
+      type: newType,
+    } = institution;
 
     setName(newName);
     setDescription(newDescription);
+    const finalType = types.find((item) => item.value === newType);
+    if (finalType) {
+      setType(finalType);
+    }
   };
 
   useEffect(async () => {
@@ -41,10 +58,26 @@ export default function SettingsName() {
     setDescription(value);
   };
 
+  const changeType = (newType) => {
+    if (newType) {
+      const { value, label } = newType;
+      setType({ value, label });
+    } else {
+      setType('');
+    }
+  };
+
   const validate = () => {
     const newInvaliditys = {};
 
-    newInvaliditys.name = validateName(name);
+    newInvaliditys.name = validateGeneric(
+      name,
+      'Informe o nome da instituição'
+    );
+    newInvaliditys.type = validateGeneric(
+      type,
+      'Informe o tipo de instituição'
+    );
 
     setInvaliditys(newInvaliditys);
 
@@ -56,7 +89,7 @@ export default function SettingsName() {
 
   const submit = () => {
     if (validate()) {
-      updateInstitution({ name, description }, id);
+      updateInstitution({ name, description, type: type.value }, id);
     }
   };
 
@@ -64,14 +97,14 @@ export default function SettingsName() {
     <AnimatedPage>
       <Header title="Configurações" path="/institution/settings" />
       <div className="content">
-        <p className={styles.title}>Nome e Descrição</p>
+        <p className={styles.title}>Dados básicos</p>
         <div style={{ marginTop: 30 }} />
 
         <Form>
           <Input
             value={name}
             onChange={changeName}
-            label="Nome"
+            label="Nome*"
             error={invaliditys.name}
           />
           <Input
@@ -79,6 +112,14 @@ export default function SettingsName() {
             onChange={changeDescription}
             type="textarea"
             label="Descrição"
+          />
+          <Select
+            value={type}
+            onChange={changeType}
+            options={types}
+            label="Tipo de Instituição*"
+            isClearable={isClearable(type.value)}
+            error={invaliditys.type}
           />
         </Form>
         <Button
