@@ -9,6 +9,7 @@ import Button from 'components/Button';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import PublicationList from 'components/PublicationsList';
 import CoverImage from 'components/CoverImage';
+import { likePublication } from 'services/publicationService';
 import Modal from './Modal';
 
 import styles from './styles.module.css';
@@ -23,7 +24,7 @@ const Instituition = () => {
   const [donationData, setDonationData] = useState({});
   const { name, description, location, coverImage, logoImage } = institution;
 
-  useEffect(async () => {
+  const getInstitution = async () => {
     try {
       const { data } = await api.get(`/institution/${id}`);
       const { institution: newInstitution, publications: newPublications } =
@@ -39,10 +40,30 @@ const Instituition = () => {
         text: msg,
       });
     }
+  };
+
+  useEffect(() => {
+    getInstitution();
   }, [mode]);
 
   const changeDonateModal = () => {
     setDonateModal(!donateModal);
+  };
+
+  const likePub = async ({ id: idPub, idUser, like }) => {
+    const newPublications = [...publications];
+    const publication = newPublications.find((pub) => pub._id === idPub);
+
+    if (like) {
+      publication.likes.push(idUser);
+    } else {
+      const index = publication.likes.indexOf(idUser);
+      publication.likes.splice(index, 1);
+    }
+    setPublications(newPublications);
+
+    await likePublication(idPub, idUser, like);
+    getInstitution();
   };
 
   return (
@@ -94,6 +115,7 @@ const Instituition = () => {
           <PublicationList
             publications={publications}
             back={`/donor/institution/${id}`}
+            likePub={(value) => likePub(value)}
           />
         )}
       </div>

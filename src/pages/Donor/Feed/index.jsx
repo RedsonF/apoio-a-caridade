@@ -180,7 +180,9 @@ export default function Feed() {
             {`FILTROS (${n})`}
           </Button>
         </div>
-
+        <div style={{ marginTop: 20 }}>
+          <p style={{ fontSize: 20 }}>Publicações</p>
+        </div>
         <PublicationsList
           publications={publications}
           likePub={(value) => likePub(value)}
