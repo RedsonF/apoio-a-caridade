@@ -7,7 +7,6 @@ import Carousel from 'components/Carousel';
 import LogoImage from 'components/LogoImage';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import FavoriteBorderRounded from '@mui/icons-material/FavoriteBorderRounded';
-
 import styles from './styles.module.css';
 
 export default function PublicationsList({ publications, likePub, back }) {

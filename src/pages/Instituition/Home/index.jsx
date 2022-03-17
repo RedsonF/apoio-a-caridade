@@ -6,7 +6,7 @@ import api from 'services/api';
 import Swal from 'sweetalert2';
 import Header from 'components/Header';
 import CoverImage from 'components/CoverImage';
-
+import { convertToSigla } from 'util/conversor';
 import styles from './styles.module.css';
 
 export default function HomeInstituition() {
@@ -46,7 +46,8 @@ export default function HomeInstituition() {
           <div className={styles.info}>
             <p className={styles.bold}>Localização</p>
             <p>
-              {location?.address} - {location?.city} - {location?.state}
+              {location?.address} - {location?.city} -{' '}
+              {convertToSigla(location?.state)}
             </p>
           </div>
           <div className={styles.info}>

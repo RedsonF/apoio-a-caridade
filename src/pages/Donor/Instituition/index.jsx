@@ -10,6 +10,7 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import PublicationList from 'components/PublicationsList';
 import CoverImage from 'components/CoverImage';
 import { likePublication } from 'services/publicationService';
+import { convertToSigla } from 'util/conversor';
 import Modal from './Modal';
 
 import styles from './styles.module.css';
@@ -81,7 +82,8 @@ const Instituition = () => {
         <div style={{ marginTop: 15 }}>
           <p className={styles.title}>{name}</p>
           <p>
-            {location?.address} - {location?.city} - {location?.state}
+            {location?.address} - {location?.city} -{' '}
+            {convertToSigla(location?.state)}
           </p>
         </div>
         <div className={styles.button}>

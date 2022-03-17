@@ -20,7 +20,7 @@ import {
   getCityByName,
 } from 'util/locations';
 import { getDonor } from 'services/donorService';
-import qs from 'qs';
+import { convertToSigla } from 'util/conversor';
 import Modal from './Modal';
 
 import styles from './styles.module.css';
@@ -191,7 +191,7 @@ export default function Home() {
               <div className={styles.text}>
                 <span className={styles.name}>{item.name}</span>
                 <p>
-                  {item.location.city} - {item.location.state}
+                  {item.location.city} - {convertToSigla(item.location.state)}
                 </p>
               </div>
             </div>

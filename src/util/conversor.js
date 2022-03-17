@@ -1,4 +1,5 @@
 import { cpf, cnpj } from 'cpf-cnpj-validator';
+import states from 'constants/states';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 
@@ -26,13 +27,12 @@ export const convertHour = (hour) => {
   return hour;
 };
 
-export const convertToSigla = (state, states) => {
+export const convertToSigla = (state) => {
   let result = { sigla: state };
 
-  const filter = states.filter((item) => item.label === state);
+  const filter = states.find((item) => item.nome === state);
 
-  if (filter.length > 0) [result] = filter;
-
+  if (filter) result = filter;
   return result.sigla;
 };
 
