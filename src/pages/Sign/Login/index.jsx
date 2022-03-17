@@ -96,10 +96,7 @@ const Login = () => {
         <div
           className={styles.text}
           style={{
-            position: 'absolute',
-            bottom: 20,
-            left: '50%',
-            transform: 'translateX(-50%)',
+            marginTop: 'auto',
           }}
         >
           <p>Não possui uma conta?</p>
