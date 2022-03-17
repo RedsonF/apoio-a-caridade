@@ -28,6 +28,7 @@ export default function Publications() {
   const navigate = useNavigate();
 
   const [publications, setPublications] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
     try {
@@ -42,6 +43,7 @@ export default function Publications() {
         text: msg,
       });
     }
+    setLoading(false);
   }, []);
 
   const navigateToAddPublication = () => {
@@ -52,7 +54,7 @@ export default function Publications() {
     <AnimatedPage>
       <Header title="Publicações" />
       <div className="content">
-        <PublicationsList publications={publications} />
+        <PublicationsList publications={publications} loading={loading} />
         <IconButton
           onClick={() => navigateToAddPublication()}
           style={styleButton}

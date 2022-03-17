@@ -9,9 +9,16 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import FavoriteBorderRounded from '@mui/icons-material/FavoriteBorderRounded';
 import styles from './styles.module.css';
 
-export default function PublicationsList({ publications, likePub, back }) {
+export default function PublicationsList({
+  publications,
+  likePub,
+  back,
+  loading,
+}) {
   const navigate = useNavigate();
   const { role, user } = useContext(AuthContext);
+  const showMessage =
+    role === 'institution' && !loading && publications.length === 0;
 
   const navigateToInstitution = (id, event) => {
     event.stopPropagation();
@@ -93,6 +100,11 @@ export default function PublicationsList({ publications, likePub, back }) {
           </div>
         </div>
       ))}
+      {showMessage && (
+        <p style={{ marginTop: 50, textAlign: 'center' }}>
+          Sua instituição não possue nenhuma publicação
+        </p>
+      )}
     </div>
   );
 }
