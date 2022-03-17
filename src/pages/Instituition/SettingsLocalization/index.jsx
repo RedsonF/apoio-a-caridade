@@ -82,9 +82,9 @@ export default function SettingsLocalization() {
   const validate = () => {
     const newInvaliditys = {};
 
-    newInvaliditys.state = validateGeneric(state.label, 'Informe o estado!');
-    newInvaliditys.city = validateGeneric(city.label, 'Informe a cidade!');
-    newInvaliditys.address = validateGeneric(address, 'Informe o endereço!');
+    newInvaliditys.state = validateGeneric(state.label, 'Informe o estado');
+    newInvaliditys.city = validateGeneric(city.label, 'Informe a cidade');
+    newInvaliditys.address = validateGeneric(address, 'Informe o endereço');
 
     setInvaliditys(newInvaliditys);
 
@@ -117,7 +117,7 @@ export default function SettingsLocalization() {
             value={state}
             onChange={changeState}
             options={states}
-            label="Estado"
+            label="Estado*"
             isClearable={isClearable(state.value)}
             error={invaliditys.state}
           />
@@ -125,14 +125,14 @@ export default function SettingsLocalization() {
             value={city}
             onChange={changeCity}
             options={citys}
-            label="Cidade"
+            label="Cidade*"
             isClearable={isClearable(city.value)}
             error={invaliditys.city}
           />
           <Input
             value={address}
             onChange={changeAddress}
-            label="Endereço"
+            label="Endereço*"
             error={invaliditys.address}
           />
         </Form>

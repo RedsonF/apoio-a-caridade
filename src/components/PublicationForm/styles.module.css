@@ -31,3 +31,10 @@
   justify-content: center;
   margin: 10px;
 }
+
+.error {
+  color: var(--red);
+  text-align: center;
+  font-size: 14px;
+  margin-top: 2px;
+}

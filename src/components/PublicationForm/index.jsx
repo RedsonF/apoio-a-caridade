@@ -28,7 +28,8 @@ export default function PublicationForm({
     padding: 4,
     borderRadius: 8,
     color: 'var(--white)',
-    width: 210,
+    width: 230,
+    marginBottom: 10,
   };
 
   const { images, title, description, invaliditys } = data;
@@ -46,10 +47,12 @@ export default function PublicationForm({
   const validate = () => {
     const newInvaliditys = {};
 
-    newInvaliditys.title = validateGeneric(title, 'Informe o título!');
+    newInvaliditys.images =
+      images.length === 0 ? 'Adicione pelo menos 1 imagem' : '';
+    newInvaliditys.title = validateGeneric(title, 'Informe o título');
     newInvaliditys.description = validateGeneric(
       description,
-      'Informe a descrição!'
+      'Informe a descrição'
     );
 
     setInvaliditys(newInvaliditys);
@@ -89,6 +92,7 @@ export default function PublicationForm({
   const buttonImage = () => (
     <label style={{ cursor: 'pointer' }} htmlFor="button-image">
       <input
+        disabled={images.length === 5}
         type="file"
         accept="image/*"
         id="button-image"
@@ -96,7 +100,8 @@ export default function PublicationForm({
         className={styles.hidden}
       />
       <div style={imgButton}>
-        ADICIONAR IMAGEM <PhotoCameraIcon className={styles.icon} />
+        ADICIONAR IMAGEM {images.length}/5
+        <PhotoCameraIcon className={styles.icon} />
       </div>
     </label>
   );
@@ -108,22 +113,26 @@ export default function PublicationForm({
         removeImage={(value) => removeImage(value)}
         removeMode={removeMode}
       />
-      <div className={styles.buttonImageContainer}>
-        {removeMode && buttonImage()}
-      </div>
+      {removeMode && (
+        <>
+          <p className={styles.error}>{invaliditys.images}</p>
+
+          <div className={styles.buttonImageContainer}>{buttonImage()}</div>
+        </>
+      )}
 
       <Form>
         <Input
           value={title}
           onChange={changeTitle}
-          label="Título"
+          label="Título*"
           error={invaliditys.title}
         />
         <Input
           value={description}
           onChange={changeDescription}
           type="textarea"
-          label="Descrição"
+          label="Descrição*"
           error={invaliditys.description}
         />
       </Form>

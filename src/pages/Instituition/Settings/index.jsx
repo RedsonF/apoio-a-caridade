@@ -54,16 +54,16 @@ export default function Settings() {
 
         <div className={styles.options}>
           <div onClick={() => navigateToSettingsName()}>
-            <p>Nome e Descrição</p>
+            <p>Dados básicos</p>
+          </div>
+          <div onClick={() => navigateToSettingsBankData()}>
+            <p>Dados para doação</p>
           </div>
           <div onClick={() => navigateToSettingsLocation()}>
             <p>Localização</p>
           </div>
           <div onClick={() => navigateToSettingsImages()}>
             <p>Imagens</p>
-          </div>
-          <div onClick={() => navigateToSettingsBankData()}>
-            <p>Dados Bancários</p>
           </div>
           <div onClick={() => setOpenModal(true)} className={styles.last}>
             <LogoutRoundedIcon />

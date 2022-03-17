@@ -88,7 +88,7 @@ const Login = () => {
           </Form>
           <Button
             onClick={() => submit()}
-            style={{ width: '100%', marginTop: 20 }}
+            style={{ width: '100%', marginTop: 20, marginBottom: 40 }}
           >
             Login
           </Button>

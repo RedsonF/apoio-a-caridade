@@ -14,6 +14,19 @@ export default function PublicationsList({ publications, likePub, back }) {
   const navigate = useNavigate();
   const { role, user } = useContext(AuthContext);
 
+  const navigateToInstitution = (id, event) => {
+    event.stopPropagation();
+    if (id) {
+      navigate(`/donor/institution/${id}`, {
+        state: {
+          back: '/donor/feed',
+        },
+      });
+    } else {
+      navigate('/institution/home');
+    }
+  };
+
   const navigateToPublication = (id) => {
     const type = role === 'donor' ? 'donor' : 'institution';
     navigate(`/${type}/publication/${id}`, {
@@ -23,7 +36,6 @@ export default function PublicationsList({ publications, likePub, back }) {
     });
   };
 
-  console.log(publications);
   return (
     <div className={styles.list}>
       {publications.map((item) => (
@@ -38,7 +50,12 @@ export default function PublicationsList({ publications, likePub, back }) {
               size="small"
             />
             <div className={styles.info}>
-              <p className={styles.name}>
+              <p
+                onClick={(event) =>
+                  navigateToInstitution(item.idInstitution._id, event)
+                }
+                className={styles.name}
+              >
                 {item.idInstitution.name || item.nameInstitution}
               </p>
               <p className={styles.time}>{relativeTime(item.createdAt)}</p>

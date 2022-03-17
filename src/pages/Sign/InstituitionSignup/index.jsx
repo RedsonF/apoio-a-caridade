@@ -119,7 +119,10 @@ export default function InstituitionSignup() {
   const validate = () => {
     const newInvaliditys = {};
 
-    newInvaliditys.name = validateGeneric(name, 'Informe o nome');
+    newInvaliditys.name = validateGeneric(
+      name,
+      'Informe o nome da instituição'
+    );
     newInvaliditys.email = validateEmail(email);
     newInvaliditys.password = validatePassword(password);
     newInvaliditys.state = validateGeneric(
@@ -170,28 +173,28 @@ export default function InstituitionSignup() {
             <Input
               value={name}
               onChange={changeName}
-              placeholder="Nome da Instituição"
+              placeholder="Nome da Instituição*"
               error={invaliditys.name}
             />
             <Input
               value={email}
               onChange={changeEmail}
               type="email"
-              placeholder="Email"
+              placeholder="Email*"
               error={invaliditys.email}
             />
             <Input
               value={password}
               onChange={changePassword}
               type="password"
-              placeholder="Senha"
+              placeholder="Senha*"
               error={invaliditys.password}
             />
             <Select
               value={state}
               onChange={changeState}
               options={states}
-              placeholder="Estado"
+              placeholder="Estado*"
               isClearable={isClearable(state.value)}
               error={invaliditys.state}
             />
@@ -199,28 +202,28 @@ export default function InstituitionSignup() {
               value={city}
               onChange={changeCity}
               options={citys}
-              placeholder="Cidade"
+              placeholder="Cidade*"
               isClearable={isClearable(city.value)}
               error={invaliditys.city}
             />
             <Input
               value={address}
               onChange={changeAddress}
-              placeholder="Endereço"
+              placeholder="Endereço*"
               error={invaliditys.address}
             />
             <Select
               value={type}
               onChange={changeType}
               options={types}
-              placeholder="Tipo de Instituição"
+              placeholder="Tipo de Instituição*"
               isClearable={isClearable(type.value)}
               error={invaliditys.type}
             />
             <InputMask
               value={cnpj}
               onChange={changeCnpj}
-              placeholder="CNPJ"
+              placeholder="CNPJ*"
               error={invaliditys.cnpj}
             />
           </Form>
