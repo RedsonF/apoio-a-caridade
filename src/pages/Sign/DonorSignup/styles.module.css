@@ -1,18 +1,14 @@
 .form {
-  margin-top: 40px;
+  margin-top: 150px;
+  padding-bottom: 30px;
 }
 
 .text {
-  margin-top: 2px;
+  margin-top: auto;
   display: flex;
   justify-content: center;
   font-size: 14px;
   gap: 5px;
-  width: 100%;
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .link {

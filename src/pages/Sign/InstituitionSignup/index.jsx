@@ -168,78 +168,80 @@ export default function InstituitionSignup() {
   return (
     <AnimatedPage>
       <SignTemplate>
-        <div>
-          <Form gap={10} transparent>
-            <Input
-              value={name}
-              onChange={changeName}
-              placeholder="Nome da Instituição*"
-              error={invaliditys.name}
-            />
-            <Input
-              value={email}
-              onChange={changeEmail}
-              type="email"
-              placeholder="Email*"
-              error={invaliditys.email}
-            />
-            <Input
-              value={password}
-              onChange={changePassword}
-              type="password"
-              placeholder="Senha*"
-              error={invaliditys.password}
-            />
-            <Select
-              value={state}
-              onChange={changeState}
-              options={states}
-              placeholder="Estado*"
-              isClearable={isClearable(state.value)}
-              error={invaliditys.state}
-            />
-            <Select
-              value={city}
-              onChange={changeCity}
-              options={citys}
-              placeholder="Cidade*"
-              isClearable={isClearable(city.value)}
-              error={invaliditys.city}
-            />
-            <Input
-              value={address}
-              onChange={changeAddress}
-              placeholder="Endereço*"
-              error={invaliditys.address}
-            />
-            <Select
-              value={type}
-              onChange={changeType}
-              options={types}
-              placeholder="Tipo de Instituição*"
-              isClearable={isClearable(type.value)}
-              error={invaliditys.type}
-            />
-            <InputMask
-              value={cnpj}
-              onChange={changeCnpj}
-              placeholder="CNPJ*"
-              error={invaliditys.cnpj}
-            />
-          </Form>
-          <Button
-            onClick={() => submit()}
-            style={{ width: '100%', marginTop: 20 }}
-          >
-            cadastrar
-          </Button>
+        <>
+          <div className={styles.form}>
+            <Form transparent>
+              <Input
+                value={name}
+                onChange={changeName}
+                placeholder="Nome da Instituição*"
+                error={invaliditys.name}
+              />
+              <Input
+                value={email}
+                onChange={changeEmail}
+                type="email"
+                placeholder="Email*"
+                error={invaliditys.email}
+              />
+              <Input
+                value={password}
+                onChange={changePassword}
+                type="password"
+                placeholder="Senha*"
+                error={invaliditys.password}
+              />
+              <Select
+                value={state}
+                onChange={changeState}
+                options={states}
+                placeholder="Estado*"
+                isClearable={isClearable(state.value)}
+                error={invaliditys.state}
+              />
+              <Select
+                value={city}
+                onChange={changeCity}
+                options={citys}
+                placeholder="Cidade*"
+                isClearable={isClearable(city.value)}
+                error={invaliditys.city}
+              />
+              <Input
+                value={address}
+                onChange={changeAddress}
+                placeholder="Endereço*"
+                error={invaliditys.address}
+              />
+              <Select
+                value={type}
+                onChange={changeType}
+                options={types}
+                placeholder="Tipo de Instituição*"
+                isClearable={isClearable(type.value)}
+                error={invaliditys.type}
+              />
+              <InputMask
+                value={cnpj}
+                onChange={changeCnpj}
+                placeholder="CNPJ*"
+                error={invaliditys.cnpj}
+              />
+            </Form>
+            <Button
+              onClick={() => submit()}
+              style={{ width: '100%', marginTop: 20 }}
+            >
+              cadastrar
+            </Button>
+          </div>
           <div className={styles.text}>
             <p>Já possui uma conta?</p>
             <p onClick={() => navigateToLogin()} className={styles.link}>
               Entre
             </p>
           </div>
-        </div>
+        </>
       </SignTemplate>
     </AnimatedPage>
   );

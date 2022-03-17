@@ -36,7 +36,7 @@ const PreSignup = () => {
                 cadastre-se como doador
               </Button>
             </div>
-            <div>
+            <div style={{ marginTop: 20 }}>
               <p>
                 Cadastre sua instituição no sistema para que os doadores possam
                 vê-lo
