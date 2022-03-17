@@ -102,7 +102,7 @@ export default function PublicationsList({
       ))}
       {showMessage && (
         <p style={{ marginTop: 50, textAlign: 'center' }}>
-          Sua instituição não possue nenhuma publicação
+          Sua instituição não possui nenhuma publicação
         </p>
       )}
     </div>
