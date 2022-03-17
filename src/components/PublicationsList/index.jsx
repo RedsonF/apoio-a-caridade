@@ -16,12 +16,14 @@ export default function PublicationsList({ publications, likePub, back }) {
 
   const navigateToInstitution = (id, event) => {
     event.stopPropagation();
-    if (id) {
-      navigate(`/donor/institution/${id}`, {
-        state: {
-          back: '/donor/feed',
-        },
-      });
+    if (role === 'donor') {
+      if (id) {
+        navigate(`/donor/institution/${id}`, {
+          state: {
+            back: '/donor/feed',
+          },
+        });
+      }
     } else {
       navigate('/institution/home');
     }
@@ -92,7 +94,6 @@ export default function PublicationsList({ publications, likePub, back }) {
           </div>
         </div>
       ))}
-      {publications.length === 0 && <div className={styles.line} />}
     </div>
   );
 }

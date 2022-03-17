@@ -105,7 +105,11 @@ export default function Preferences() {
       <Header title="Configurações" path="/donor/options" />
       <div className="content">
         <p className={styles.title}>Preferências</p>
-        <div style={{ marginTop: 30 }} />
+        <div style={{ marginTop: 30, marginBottom: 10 }}>
+          <p>
+            Defina os valores padrões dos filtros de acordo com sua preferência
+          </p>
+        </div>
         <Form>
           <Select
             value={state}

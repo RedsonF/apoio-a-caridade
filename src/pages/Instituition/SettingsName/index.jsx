@@ -111,7 +111,7 @@ export default function SettingsName() {
             value={description}
             onChange={changeDescription}
             type="textarea"
-            label="Descrição"
+            label="Sobre"
           />
           <Select
             value={type}
