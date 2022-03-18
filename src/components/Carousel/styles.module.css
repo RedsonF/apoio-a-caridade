@@ -16,12 +16,18 @@
   border-radius: 0 !important;
 }
 
-.items {
+.items,
+.itemsFeed {
   display: flex;
   overflow-x: auto;
   height: 100%;
   width: 100%;
   scroll-snap-type: x mandatory;
+  border-radius: 5px;
+}
+
+.itemsFeed {
+  border-radius: 0 !important;
 }
 
 .item {

@@ -14,6 +14,7 @@ export default function PublicationsList({
   likePub,
   back,
   loading,
+  logoImage,
 }) {
   const navigate = useNavigate();
   const { role, user } = useContext(AuthContext);
@@ -54,7 +55,7 @@ export default function PublicationsList({
         >
           <div className={styles.instituition}>
             <LogoImage
-              image={item.idInstitution.logoInstitution}
+              image={item.idInstitution.logoImage || logoImage}
               size="small"
             />
             <div className={styles.info}>

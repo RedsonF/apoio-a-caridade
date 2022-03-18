@@ -64,7 +64,11 @@ export default function Carousel({ images, removeImage, removeMode, feed }) {
         <ImageRoundedIcon className={styles.icon} />
       ) : (
         <>
-          <div onScroll={(e) => change(e)} id="teste" className={styles.items}>
+          <div
+            onScroll={(e) => change(e)}
+            id="teste"
+            className={feed ? styles.itemsFeed : styles.items}
+          >
             {images.map((img) => (
               <div key={img.url || img} className={styles.item}>
                 {removeMode && removeButton()}

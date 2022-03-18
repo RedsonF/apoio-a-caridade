@@ -28,13 +28,15 @@ export default function Publications() {
   const navigate = useNavigate();
 
   const [publications, setPublications] = useState([]);
+  const [logo, setLogo] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
     try {
       const { data } = await api.get(`/institution/${user?._id}`);
-      const { publications: newPublications } = data;
+      const { publications: newPublications, institution } = data;
       setPublications(newPublications);
+      setLogo(institution.logoImage);
     } catch (err) {
       const { msg } = err.response?.data || '';
       Swal.fire({
@@ -54,7 +56,11 @@ export default function Publications() {
     <AnimatedPage>
       <Header title="Publicações" />
       <div className="content">
-        <PublicationsList publications={publications} loading={loading} />
+        <PublicationsList
+          publications={publications}
+          loading={loading}
+          logoImage={logo}
+        />
         <IconButton
           onClick={() => navigateToAddPublication()}
           style={styleButton}

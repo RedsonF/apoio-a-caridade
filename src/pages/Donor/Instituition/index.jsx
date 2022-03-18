@@ -118,6 +118,7 @@ const Instituition = () => {
             publications={publications}
             back={`/donor/institution/${id}`}
             likePub={(value) => likePub(value)}
+            logoImage={logoImage}
           />
         )}
       </div>

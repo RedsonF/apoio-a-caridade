@@ -113,12 +113,13 @@ export default function PublicationForm({
         removeImage={(value) => removeImage(value)}
         removeMode={removeMode}
       />
-      {removeMode && (
+      {removeMode ? (
         <>
           <p className={styles.error}>{invaliditys.images}</p>
-
           <div className={styles.buttonImageContainer}>{buttonImage()}</div>
         </>
+      ) : (
+        <div style={{ marginBottom: 10 }} />
       )}
 
       <Form>
@@ -137,7 +138,7 @@ export default function PublicationForm({
         />
       </Form>
       <Button onClick={() => action()} style={{ width: '100%', marginTop: 20 }}>
-        SALVAR
+        {removeMode ? 'PUBLICAR' : 'SALVAR'}
       </Button>
     </>
   );
