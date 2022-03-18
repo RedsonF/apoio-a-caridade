@@ -169,7 +169,12 @@ export default function Feed() {
       <Header title="Feed" />
       <div className="content">
         <div style={{ marginTop: 10 }}>
-          <Input value={search} onChange={changeSearch} icon={<SearchIcon />} />
+          <Input
+            value={search}
+            onChange={changeSearch}
+            icon={<SearchIcon />}
+            placeholder="Digite o título da publicação..."
+          />
         </div>
         <div style={{ marginTop: 15 }}>
           <Button

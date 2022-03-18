@@ -166,7 +166,12 @@ export default function Home() {
       <Header title="Início" />
       <div className="content">
         <div style={{ marginTop: 10 }}>
-          <Input value={search} onChange={changeSearch} icon={<SearchIcon />} />
+          <Input
+            value={search}
+            onChange={changeSearch}
+            icon={<SearchIcon />}
+            placeholder="Digite o nome da instituição..."
+          />
         </div>
         <div style={{ marginTop: 15 }}>
           <Button
