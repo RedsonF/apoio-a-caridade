@@ -132,15 +132,15 @@ export default function Preferences() {
             label="Entidades beneficentes"
           />
           <Checkbox
-            checked={types[2].selected}
-            value={types[2].selected}
-            onChange={() => changeTypes(2)}
+            checked={types[1].selected}
+            value={types[1].selected}
+            onChange={() => changeTypes(1)}
             label="Institutos"
           />
           <Checkbox
-            checked={types[3].selected}
-            value={types[3].selected}
-            onChange={() => changeTypes(3)}
+            checked={types[2].selected}
+            value={types[2].selected}
+            onChange={() => changeTypes(2)}
             label="ONGs"
           />
         </Form>
