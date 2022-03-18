@@ -19,14 +19,6 @@ const Guide = () => (
         </p>
       </div>
       <div className={styles.instituition}>
-        <p className={styles.name}>Fundações</p>
-        <p className={styles.description}>
-          São instituições mais ligadas à captação de recursos. As fundações
-          visam alcançar determinado fim de interesse público ou social, atuando
-          em áreas científica, social ou cultural.
-        </p>
-      </div>
-      <div className={styles.instituition}>
         <p className={styles.name}>Institutos</p>
         <p className={styles.description}>
           São instituições dedicadas ao estudo ou à pesquisa de caráter

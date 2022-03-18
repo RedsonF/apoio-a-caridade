@@ -45,7 +45,6 @@ export default function Home() {
       label: 'Entidades beneficentes',
       selected: false,
     },
-    { value: 'fundação', label: 'Fundações', selected: false },
     { value: 'instituto', label: 'Institutos', selected: false },
     { value: 'ong', label: 'ONGs', selected: false },
   ]);

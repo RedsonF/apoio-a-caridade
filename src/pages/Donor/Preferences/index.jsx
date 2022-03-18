@@ -26,7 +26,6 @@ export default function Preferences() {
   const [city, setCity] = useState({ value: -1, label: 'Todas' });
   const [types, setTypes] = useState([
     { value: 'beneficente', label: 'Entidades beneficentes', selected: false },
-    { value: 'fundação', label: 'Fundações', selected: false },
     { value: 'instituto', label: 'Institutos', selected: false },
     { value: 'ong', label: 'ONGs', selected: false },
   ]);
@@ -131,12 +130,6 @@ export default function Preferences() {
             value={types[0].selected}
             onChange={() => changeTypes(0)}
             label="Entidades beneficentes"
-          />
-          <Checkbox
-            checked={types[1].selected}
-            value={types[1].selected}
-            onChange={() => changeTypes(1)}
-            label="Fundações"
           />
           <Checkbox
             checked={types[2].selected}

@@ -19,7 +19,6 @@ export default function SettingsName() {
   const [type, setType] = useState('');
   const types = [
     { value: 'beneficente', label: 'Entidade beneficente' },
-    { value: 'fundação', label: 'Fundação' },
     { value: 'instituto', label: 'Instituto' },
     { value: 'ong', label: 'ONG' },
   ];

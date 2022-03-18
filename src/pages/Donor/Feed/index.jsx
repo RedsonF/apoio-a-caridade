@@ -33,7 +33,6 @@ export default function Feed() {
   const [city, setCity] = useState({ value: -1, label: 'Todas' });
   const [types, setTypes] = useState([
     { value: 'beneficente', label: 'Entidades beneficentes', selected: false },
-    { value: 'fundação', label: 'Fundações', selected: false },
     { value: 'instituto', label: 'Institutos', selected: false },
     { value: 'ong', label: 'ONGs', selected: false },
   ]);

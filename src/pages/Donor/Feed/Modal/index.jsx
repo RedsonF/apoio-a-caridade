@@ -78,12 +78,6 @@ const Modal = ({
             label="Entidades beneficentes"
           />
           <Checkbox
-            checked={types[1].selected}
-            value={types[1].selected}
-            onChange={() => changeTypes(1)}
-            label="Fundações"
-          />
-          <Checkbox
             checked={types[2].selected}
             value={types[2].selected}
             onChange={() => changeTypes(2)}
